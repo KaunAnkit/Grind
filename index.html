@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Dashboard</title>
+  <link rel="stylesheet" href="/css/index.css" />
+  <link rel="stylesheet" href="/css/list.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+  <div class="totalflex">
+    <aside class="sidebar" aria-label="Sidebar Navigation">
+      <div class="logo">
+        <img src="/Photos/TEXT.png" alt="Study Dashboard Logo">
+      </div>
+      <hr>
+      <nav>
+        <div class="sidebar-item" tabindex="0">
+          <span class="material-symbols-outlined">cottage</span>
+          <span class="sidebar-text">Home</span>
+        </div>
+        <div class="sidebar-item" tabindex="0">
+          <span class="material-symbols-outlined">query_stats</span>
+          <span class="sidebar-text">Analytics</span>
+        </div>
+        <div class="sidebar-item" tabindex="0">
+          <span class="material-symbols-outlined">leaderboard</span>
+          <span class="sidebar-text">Leaderboard</span>
+        </div>
+        <div class="sidebar-item" tabindex="0">
+          <span class="material-symbols-outlined">settings</span>
+          <span class="sidebar-text">Settings</span>
+        </div>
+      </nav>
+    </aside>
+    <div id="username-modal" class="modal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true">
+        <h3>Welcome!</h3>
+        <p>Please enter your name:</p>
+        <input type="text" id="username-input" placeholder="Your name" />
+        <div class="modal-actions">
+          <button id="save-username">Continue</button>
+        </div>
+      </div>
+    </div>
+    <main class="container">
+      <header class="header">
+        <div>
+          <h1 class="greeting" id="user-greeting">Hey, Ankit! 👋</h1>
+          <p class="subtext">Ready to Grind?</p>
+          <button class="btn-small-name" id="change-name">Change Name</button>
+        </div>
+      </header>
+
+      <section class="card" aria-label="Deadline Countdown">
+        <div>
+          <h2 class="card-title">Deadline Countdown</h2>
+          <div class="timer" id="countdown-timer">0d 0h 0m 0s</div>
+        </div>
+        <button class="btn" id="change-deadline">Change Date</button>
+      </section>
+
+      <div id="deadline-modal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true">
+          <h3 style="color: black;">Select Date and Time</h3>
+          <input type="datetime-local" id="deadline-input" />
+          <div class="modal-actions">
+            <button id="save-deadline">Save</button>
+            <button id="cancel-deadline">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="cardList" aria-label="To-Do List">
+        <h2 class="card-title">TO-DO LIST</h2>
+        <div class="todo-input-row">
+          <input type="text" id="todo-input" placeholder="Add a task..." aria-label="Add task" />
+          <select id="priority-select" aria-label="Select priority">
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+          </select>
+          <input type="time" id="time-input" aria-label="Select time" />
+          <button id="add-todo" aria-label="Add task to list">+</button>
+        </div>
+        <ul id="todo-list" aria-label="Task List"></ul>
+      </section>
+
+      <div class="tracker" aria-label="Study Tracker" id="tracker">
+        <h2 class="card-title">Tracker</h2>
+        <div class="tabs" role="tablist" id="subject-tabs"></div>
+
+        <div id="time-log-display" style="margin: 10px 0; color: #aaa; font-weight: bold;">
+          Time Spent on CODING: 0m 0s
+        </div>
+
+        <div class="settings">
+          <button class="btn-small" id="edit-subjects">🛠️ Edit Subjects</button>
+          <button class="btn-small" id="reset-settings">Reset</button>
+          <button class="btn-small" id="open-settings">Settings</button>
+          <button class="btn-small" onclick="openFullscreen()">Full Screen</button>
+        </div>
+
+        <div class="card2" id="cardTime">
+          <div class="card3">
+            <div class="PromoTimer" id="pomodoro-timer">25 : 00</div>
+          </div>
+          <button class="control" id="startPauseBtn">▶ Start</button>
+        </div>
+
+        <section class="card" id="progress-section">
+          <div class="progress-header">
+            <h2>Today's Progress</h2>
+            <div class="progress-controls">
+              <button class="btn-small" id="set-goals">⚙️ Study Goals</button>
+              <button class="btn-small" id="reset-progress">🔄 Reset Progress</button>
+            </div>
+          </div>
+          <!-- Progress rows will be generated dynamically here -->
+        </section>
+
+        <div id="settings-modal" class="modal" aria-hidden="true">
+          <div class="modal-content2" role="dialog" aria-modal="true">
+            <h3 style="color: black;">Set Timer Duration</h3>
+            <label for="custom-time">Duration (in minutes):</label>
+            <input type="number" id="custom-time" min="1" max="120" value="25" />
+            <div class="modal-actions">
+              <button id="save-settings">Save</button>
+              <button id="cancel-settings">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="goal-modal" class="modal" aria-hidden="true">
+          <div class="modal-content2" role="dialog" aria-modal="true">
+            <h3 style="color: black;">Set Daily Study Goals (in minutes)</h3>
+
+            <label for="goal-coding">Coding:</label>
+            <input type="number" id="goal-coding" min="1" value="60" />
+
+            <label for="goal-workout">Workout:</label>
+            <input type="number" id="goal-workout" min="1" value="60" />
+
+            <label for="goal-maths">Maths:</label>
+            <input type="number" id="goal-maths" min="1" value="60" />
+
+            <div class="modal-actions">
+              <button id="save-goals">Save</button>
+              <button id="cancel-goals">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="subject-modal" class="modal" aria-hidden="true">
+          <div class="modal-content2" role="dialog" aria-modal="true">
+            <h3>Edit Subjects</h3>
+            <div id="subject-list" style="margin-bottom: 1rem;"></div>
+            <input type="text" id="new-subject-name" placeholder="Add new subject" />
+            <div class="modal-actions">
+              <button id="add-subject">Add</button>
+              <button id="close-subject-modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/list.js"></script>
+  <script src="/js/deadline.js"></script>
+  <script src="/js/tracker.js"></script>
+  <script src="/js/greeting.js"></script>
+</body>
+</html>

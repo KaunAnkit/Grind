@@ -286,7 +286,46 @@ html, body {
   color: #000;
   text-align: center;
 }
-
+.modal-content4{
+  margin: 200px;
+  margin-left: 550px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 420px;
+  color: #000;
+  text-align: center;
+}
+.modal-content4 input{
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+}
+.modal-content3{
+  margin: 200px;
+  margin-left: 550px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 420px;
+  color: #000;
+  text-align: center;
+}
+.modal-content3 input{
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+}
 .modal-content input, .modal-content2 input {
   width: 100%;
   padding: 10px;

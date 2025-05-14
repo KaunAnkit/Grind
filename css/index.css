@@ -1,4 +1,4 @@
-/* RESET */
+
 * {
   margin: 0;
   padding: 0;
@@ -421,4 +421,35 @@ html, body {
   color: #fff;
   font-size: 12px;
   font-weight: bold;
+}
+/* Loading Screen */
+#loading-screen {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0b0b0b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loading-logo {
+  width: 200px;
+  height: auto;
+  opacity: 0;
+  animation: fadeInLogo 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInLogo {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+#loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
 }

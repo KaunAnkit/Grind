@@ -25,6 +25,7 @@ const goalModal = document.getElementById("goal-modal");
 const openGoalBtn = document.getElementById("set-goals");
 const saveGoalBtn = document.getElementById("save-goals");
 const cancelGoalBtn = document.getElementById("cancel-goals");
+const goalInputsContainer = document.getElementById("goal-inputs");
 
 const subjectModal = document.getElementById("subject-modal");
 const subjectList = document.getElementById("subject-list");
@@ -158,12 +159,22 @@ function saveCustomTime() {
   updateTimeDisplay();
 }
 
-// ===== Study Goal Modal =====
+// ===== Study Goal Modal (Dynamic) =====
 openGoalBtn.addEventListener("click", () => {
+  goalInputsContainer.innerHTML = "";
+
+  subjects.forEach(subject => {
+    const minutes = (timeGoals[subject] || 3600) / 60;
+    const wrapper = document.createElement("div");
+    wrapper.style.marginBottom = "10px";
+    wrapper.innerHTML = `
+      <label for="goal-${subject}" style="display:block; text-align:left;">${subject}:</label>
+      <input type="number" id="goal-${subject}" value="${minutes}" min="1" />
+    `;
+    goalInputsContainer.appendChild(wrapper);
+  });
+
   goalModal.style.display = "block";
-  document.getElementById("goal-coding").value = timeGoals["CODING"] / 60 || 60;
-  document.getElementById("goal-workout").value = timeGoals["WORKOUT"] / 60 || 60;
-  document.getElementById("goal-maths").value = timeGoals["MATHS"] / 60 || 60;
 });
 
 cancelGoalBtn.addEventListener("click", () => {
@@ -171,9 +182,14 @@ cancelGoalBtn.addEventListener("click", () => {
 });
 
 saveGoalBtn.addEventListener("click", () => {
-  timeGoals["CODING"] = parseInt(document.getElementById("goal-coding").value) * 60;
-  timeGoals["WORKOUT"] = parseInt(document.getElementById("goal-workout").value) * 60;
-  timeGoals["MATHS"] = parseInt(document.getElementById("goal-maths").value) * 60;
+  subjects.forEach(subject => {
+    const input = document.getElementById(`goal-${subject}`);
+    const value = parseInt(input.value);
+    if (!isNaN(value)) {
+      timeGoals[subject] = value * 60;
+    }
+  });
+
   saveSubjects();
   goalModal.style.display = "none";
   updateProgressBars();
